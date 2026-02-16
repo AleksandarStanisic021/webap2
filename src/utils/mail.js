@@ -5,7 +5,7 @@ const sendEmail = async (options) => {
   const mailGenerator = new Mailgen({
     theme: "default",
     product: {
-      name: "Taskacraft",
+      name: "Taskcraft",
       link: "https://taskcraft.com",
     },
   });
