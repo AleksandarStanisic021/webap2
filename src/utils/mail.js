@@ -9,7 +9,8 @@ const sendEmail = async (options) => {
       link: "https://taskcraft.com",
     },
   });
-  const emailText = mailGenerator.generatePlainText(options.mailGenContent);
+
+  const emailText = mailGenerator.generatePlaintext(options.mailGenContent);
   const emailHtml = mailGenerator.generate(options.mailGenContent);
 
   const transporter = nodemailer.createTransport({
