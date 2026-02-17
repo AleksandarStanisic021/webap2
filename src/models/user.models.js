@@ -36,7 +36,7 @@ const userSchema = new mongoose.Schema(
     },
     password: {
       type: String,
-      password: [requred, "Passwoed is required"],
+      password: String,
     },
     isEmailVerified: {
       type: Boolean,
@@ -62,10 +62,10 @@ const userSchema = new mongoose.Schema(
 );
 
 userSchema.pre("save", async function (next) {
-  if (!this.isModified("password")) return next();
+  if (!this.isModified("password")) return next;
 
   this.password = await bcrypt.hash(this.password, 10);
-  next();
+  //next();
 });
 
 userSchema.methods.isPassordCorrect = async function (password) {
@@ -94,15 +94,15 @@ userSchema.methods.generateRefreshToken = function () {
 };
 
 userSchema.methods.generateTemporaryToken = function () {
-  const unHashedToken = crypto.randomBytes(20).toString("hex");
+  const unhashedToken = crypto.randomBytes(20).toString("hex");
   const hashedToken = crypto
     .createHash("sha256")
-    .update(unHashedToken)
+    .update(unhashedToken)
     .digest("hex");
 
   const tokenExpiry = Date.now() + 20 * 60 * 1000;
 
-  return { unHashedToken, hashedToken, tokenExpiry };
+  return { unhashedToken, hashedToken, tokenExpiry };
 };
 
 export const User = mongoose.model("User", userSchema);
