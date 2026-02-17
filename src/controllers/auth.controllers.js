@@ -3,7 +3,7 @@ import { asyncHandler } from "../utils/async-handler.js";
 import { ApiResponse } from "../utils/api-response.js";
 import { ApiError } from "../utils/api-error.js";
 import { sendEmail } from "../utils/mail.js";
-import { mailVerification } from "../utils/mail.js";
+import { emailVerificationMailgenContent } from "../utils/mail.js";
 
 const generateAccessAndRefreshToken = async (userId) => {
   try {
@@ -39,15 +39,15 @@ const registerUser = asyncHandler(async (req, res) => {
   user.emailVerificationExpiery = tokenExpiry;
 
   await user.save({ validateBeforeSave: false });
-  /*
+
   await sendEmail({
     email: user?.email,
     subject: "Verify email pls",
-    mailgenContent: mailVerification(
+    mailgenContent: emailVerificationMailgenContent(
       user.username,
       `${req.protocol}://${req.get("host")}/api/v1/users/verify-email/${unhashedToken}`,
     ),
-  });*/
+  });
   const createdUser = await User.findById(user._id).select(
     "-password -emailVerificationToken -refreshToken -emailVerificationExpiry",
   );

@@ -5,72 +5,75 @@ const sendEmail = async (options) => {
   const mailGenerator = new Mailgen({
     theme: "default",
     product: {
-      name: "Taskcraft",
-      link: "https://taskcraft.com",
+      name: "Test App",
+      link: "https://testmanager.com",
     },
   });
-
-  const emailText = mailGenerator.generatePlaintext(options.mailGenContent);
-  const emailHtml = mailGenerator.generate(options.mailGenContent);
+  const emailTextual = mailGenerator.generatePlaintext(options.mailgenContent);
+  const emailHtml = mailGenerator.generate(options.mailgenContent);
 
   const transporter = nodemailer.createTransport({
     host: process.env.MAIL_TRAP_SMTP_HOST,
     port: process.env.MAIL_TRAP_SMTP_PORT,
     auth: {
       user: process.env.MAIL_TRAP_SMTP_USER,
-      pass: process.env.MAIL_TRAP_SMTP_PASS,
+      password: process.env.MAIL_TRAP_SMTP_PASS,
     },
   });
 
   const mail = {
-    from: "mail.taskmanager@sasa.com",
+    from: "ciandre23@gmail.com",
     to: options.email,
     subject: options.subject,
-    text: emailText,
+    text: emailTextual,
     html: emailHtml,
   };
 
   try {
     await transporter.sendMail(mail);
   } catch (error) {
-    console.log("error sending mail");
+    console.log("error in sending mail");
   }
-};
+}; /////
 
-const mailVerification = (username, verificationUrl) => {
+const emailVerificationMailgenContent = (username, verificationUrl) => {
   return {
     body: {
       name: username,
-      intro: "Welcome to Us!",
+      intro: "Welcome to App",
       action: {
-        instructions: "Verify email, click on button",
+        instructions: "To verify mail click on Button",
         button: {
-          color: "#22bc66",
-          text: "Verify your email",
+          color: "#1f1f1f",
+          text: "verify email",
           link: verificationUrl,
         },
       },
-      outro: "Need Help?",
+      outro: "If you need help search docs",
     },
   };
 };
 
-const forgotPassword = (username, passwordResetUrl) => {
+const forgotPasswordMailgenContent = (username, verificationUrl) => {
   return {
     body: {
       name: username,
       intro: "Request to reset password",
       action: {
-        instructions: "Click on button to reset password",
+        instructions: "To reset password click on Button",
         button: {
-          color: "#eb0f17",
+          color: "#1f1f1f",
           text: "Reset password",
-          link: passwordResetUrl,
+          link: verificationUrl,
         },
       },
-      outro: "Need Help?",
+      outro: "If you need help search docs",
     },
   };
 };
 
-export { mailVerification, forgotPassword, sendEmail };
+export {
+  emailVerificationMailgenContent,
+  forgotPasswordMailgenContent,
+  sendEmail,
+};
