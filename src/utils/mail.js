@@ -9,6 +9,10 @@ const sendEmail = async (options) => {
       link: "https://testmanager.com",
     },
   });
+  console.log(process.env.MAIL_TRAP_SMTP_USER);
+  console.log(process.env.MAIL_TRAP_SMTP_HOST);
+  console.log(process.env.MAIL_TRAP_SMTP_USER);
+
   const emailTextual = mailGenerator.generatePlaintext(options.mailgenContent);
   const emailHtml = mailGenerator.generate(options.mailgenContent);
 
@@ -17,12 +21,12 @@ const sendEmail = async (options) => {
     port: process.env.MAIL_TRAP_SMTP_PORT,
     auth: {
       user: process.env.MAIL_TRAP_SMTP_USER,
-      password: process.env.MAIL_TRAP_SMTP_PASS,
+      pass: process.env.MAIL_TRAP_SMTP_PASS,
     },
   });
 
   const mail = {
-    from: "ciandre23@gmail.com",
+    from: "taks@examples.com",
     to: options.email,
     subject: options.subject,
     text: emailTextual,
