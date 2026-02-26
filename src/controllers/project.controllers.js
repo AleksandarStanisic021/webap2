@@ -6,8 +6,10 @@ import { Project } from "../models/Project.js";
 import { User } from "../models/user.models.js";
 import { ProjectMember } from "../models/projectmember.js";
 import { UserRoleEnum } from "../constants/constants.js";
+import { pipeline } from "nodemailer/lib/xoauth2/index.js";
 
-const getAllProjects = asyncHandler(async (req, res) => {});
+const getProjects = asyncHandler(async (req, res) => {});
+
 const getProjectById = asyncHandler(async (req, res) => {});
 
 const createProject = asyncHandler(async (req, res) => {
