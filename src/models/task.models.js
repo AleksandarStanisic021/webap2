@@ -1,4 +1,4 @@
-import mongoose, { sanitizeFilter } from "mongoose";
+import mongoose, { Schema } from "mongoose";
 import { AvailabeStatuses, TaskStatusEnum } from "../constants/constants.js";
 
 const taskSchema = new mongoose.Schema(

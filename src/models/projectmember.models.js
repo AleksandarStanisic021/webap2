@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { Schema } from "mongoose";
 import { AvailableUserRole, UserRoleEnum } from "../constants/constants.js";
 
 const projectMemberSchema = new mongoose.Schema(
